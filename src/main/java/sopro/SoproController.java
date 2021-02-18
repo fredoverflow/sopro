@@ -38,6 +38,9 @@ public class SoproController {
         return cache.computeIfAbsent(fullUri, fullUri2 -> {
             System.out.println("Absent");
             try {
+                // https://api.stackexchange.com/docs/throttle
+                Thread.sleep(200);
+
                 var restTemplate = new RestTemplate();
                 var raw = restTemplate.getForObject(fullUri2, byte[].class);
                 // For some reason, Java HTTP clients fail to unzip automatically...
